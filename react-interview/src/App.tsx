@@ -1,24 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
+import { useSelector } from 'react-redux';
 
-function App() {
+import './App.scss';
+import FilterElement from './components/FilterElement/FilterElement';
+import MovieElement from './components/MovieElement/MovieElement';
+import { getFilteredMovies } from './redux/selectors/movieSelectors';
+
+const App = () => {
+  const movies = useSelector(getFilteredMovies);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className="header">Movies</h1>
+      <a className="line"/>
+      <FilterElement />
+      <div className="card-container">
+        {movies.map((movie) => {
+          return (
+            <MovieElement key={movie.id} {...movie} />
+          )
+        })
+        }
+      </div>
     </div>
   );
 }

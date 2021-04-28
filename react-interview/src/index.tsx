@@ -5,11 +5,24 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import './custom.scss';
+import { combineReducers, createStore } from 'redux';
+import movieReducer from './redux/reducers/movieReducer';
+import filterReducer from './redux/reducers/filterReducer';
+import { Provider } from 'react-redux';
+
+const store = createStore(combineReducers({
+  movieReducer,
+  filterReducer
+}),
+
+);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
