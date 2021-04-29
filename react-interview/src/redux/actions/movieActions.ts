@@ -1,16 +1,9 @@
-import { HANDLE_LIKE, SET_TEXT_FILTER, DELETE_MOVIE, FILTER_MOVIE, REMOVE_FILTER_MOVIE, ADD_FILTER_MOVIE } from '../constants/actionTypes';
+import { HANDLE_LIKE, DELETE_MOVIE, FILTER_MOVIE, REMOVE_FILTER_MOVIE, ADD_FILTER_MOVIE } from '../constants/actionTypes';
 
 export const deleteMovie = (id: string) => {
     return {
         type: DELETE_MOVIE,
         id
-    }
-}
-
-export const setTextFilter = (name: string) => {
-    return {
-        type: SET_TEXT_FILTER,
-        name
     }
 }
 
@@ -35,9 +28,10 @@ export const addFilterMovie = (category: string) => {
     }
 }
 
-export const handleLike = (likes: string) => {
+export const handleLike = (id: string, isLiked: boolean) => {
     return {
         type: HANDLE_LIKE,
-        likes
+        id,
+        isLiked
     }
 }

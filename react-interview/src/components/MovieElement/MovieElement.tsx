@@ -1,30 +1,36 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteMovie } from '../../redux/actions/movieActions';
+import { deleteMovie, handleLike } from '../../redux/actions/movieActions';
 import { Movie } from '../../types/types';
 import ProgressBar from '../ProgressBarElement/ProgressBarElement';
+import ToggleLikeElement from '../ToggleLikeElement/ToggleLikeElement';
 import './MovieElement.scss';
 
-type Props = Movie;
-const MovieElement: React.FC<Props> = (movie) => {
+type Props = { handleDelete: () => void } & Movie;
+const MovieElement: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
+  const { title, likes, dislikes, category, id, handleDelete } = props;
 
-  const { title, likes, dislikes, category, id} = movie;
+  const handleSwitch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(handleLike(id, e.target.checked));
+  }
+  const handleDeleteButton = () => {
+    dispatch(deleteMovie(id));
+    handleDelete();
+  }
   return (
     <div className="movie-card">
       <h1>{title}</h1>
-      <ProgressBar label={likes} completed={Math.floor(likes / (likes + dislikes) * 100)}/>
+      <ProgressBar label={likes} completed={Math.floor(likes / (likes + dislikes) * 100)} />
       <ul>
         <li>Total reviews: {likes + dislikes}</li>
-        {/* <li>id: {movie.id}</li> */}
-        {/* <li>title: {title}</li> */}
-        {/* <li>like: {likes}</li>
-        <li>dislikes: {dislikes}</li> */}
         <li>category: {category}</li>
       </ul>
-      <input 
+      <ToggleLikeElement id={id} handleSwitch={handleSwitch} />
+      <input
+        className="delete-button"
         type="button"
-        value="delete" onClick={() => dispatch(deleteMovie(movie.id))} />
+        value="delete" onClick={handleDeleteButton} />
     </div>
   );
 }

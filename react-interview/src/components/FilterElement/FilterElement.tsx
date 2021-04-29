@@ -24,7 +24,7 @@ const FilterElement = () => {
       {
         movieCategories.map((category, i) =>
         (<div key={i}>
-          <input type="checkbox" name={category} id={category} value={category} onChange={(e) => handleCheckbox(e)} />
+          <input type="checkbox" name={category} id={category} value={category} onChange={handleCheckbox} />
           <label htmlFor={category}>{category}</label>
         </div>)
         )

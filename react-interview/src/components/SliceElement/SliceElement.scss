@@ -1,0 +1,8 @@
+.slice-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items:baseline;
+  & > * {
+    padding: 0 5px;
+  }
+}
